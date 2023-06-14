@@ -1,4 +1,4 @@
-﻿using CodebridgeTest.Infrastructure.Intefaces;
+﻿using CodebridgeTest.Infrastructure.Interfaces;
 using CodebridgeTest.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 

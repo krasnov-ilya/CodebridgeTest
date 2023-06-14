@@ -14,7 +14,7 @@ public class PaginationFilter
             ? MinPageNumber 
             : pageNumber;
 
-        PageSize = pageSize > MaxPageSize 
+        PageSize = pageSize is > MaxPageSize or <= 0
             ? MaxPageSize 
             : pageSize;
     }

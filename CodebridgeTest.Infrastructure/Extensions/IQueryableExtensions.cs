@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Reflection;
 
 namespace CodebridgeTest.Infrastructure.Extensions;
 
@@ -8,13 +9,24 @@ public static class IQueryableExtensions
         bool descending)
     {
         var command = descending ? "OrderByDescending" : "OrderBy";
+        
         var type = typeof(TEntity);
-        var property = type.GetProperty(orderByProperty);
+        var property = type.GetProperty(orderByProperty, 
+            BindingFlags.IgnoreCase |  
+            BindingFlags.Public | 
+            BindingFlags.Instance);
+        
         var parameter = Expression.Parameter(type, orderByProperty);
         var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+        
         var orderByExpression = Expression.Lambda(propertyAccess, parameter);
-        var resultExpression = Expression.Call(typeof(Queryable), command, new [] { type, property.PropertyType },
-            source.Expression, Expression.Quote(orderByExpression));
+        var resultExpression = Expression.Call(
+            typeof(Queryable), 
+            command, 
+            new [] { type, property.PropertyType },
+            source.Expression, 
+            Expression.Quote(orderByExpression));
+        
         return source.Provider.CreateQuery<TEntity>(resultExpression);
     }
 }

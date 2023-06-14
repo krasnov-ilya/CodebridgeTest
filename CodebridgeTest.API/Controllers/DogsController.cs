@@ -1,6 +1,6 @@
 ﻿using CodebridgeTest.API.DTOs;
 using CodebridgeTest.Domain.Options;
-using CodebridgeTest.Infrastructure.Intefaces;
+using CodebridgeTest.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -18,18 +18,36 @@ public class DogsController : ControllerBase
         _serviceInfoOptions = serviceInfoOptions.Value;
     }
     
-    [HttpGet("/dogs")]
-    public async Task<IActionResult> Index()
-    {
-        var dogs = await _dogsService.Get();
-        return Ok(dogs);
-    }
-    
     // [HttpGet("/dogs")]
-    // public Task<IActionResult> Get([FromQuery] DogsFilterDto dogsFilterDto, [FromQuery] PaginationFilterDto paginationFilterDto)
+    // public async Task<IActionResult> Index()
     // {
-    //     
+    //     var dogs = await _dogsService.Get();
+    //     return Ok(dogs);
     // }
+    
+    [HttpGet("/dogs")]
+    public async Task<IActionResult> Get([FromQuery] DogsFilterDto dogsFilterDto, [FromQuery] PaginationFilterDto paginationFilterDto)
+    {
+        try
+        {
+            if (dogsFilterDto.IsEmpty && paginationFilterDto.IsEmpty)
+            {
+                var dogs = await _dogsService.Get();
+                return Ok(dogs);
+            }
+            
+            var dogsFilter = DogsFilterDto.ToDomain(dogsFilterDto);
+            var paginationFilter = PaginationFilterDto.ToDomain(paginationFilterDto);
+            var orderedDogs = await _dogsService.Get(dogsFilter, paginationFilter);
+
+            return Ok(orderedDogs);
+        }
+        catch (Exception e)
+        {
+            return UnprocessableEntity(
+                $"Dog does not contain attribute! ({nameof(dogsFilterDto.Attribute)} '{dogsFilterDto.Attribute}')");
+        }
+    }
     
     [HttpPost("/dog")]
     public async Task<IActionResult> Create([FromBody] DogDto dogDto)
