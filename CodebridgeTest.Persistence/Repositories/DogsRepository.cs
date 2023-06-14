@@ -15,20 +15,10 @@ public class DogsRepository : BaseRepository<Dog>, IDogsRepository
     public async Task<Dog?> Get(string name) => 
         await _dogsContext.Dogs.FirstOrDefaultAsync(x => x.Name == name);
 
-    public async Task<IEnumerable<Dog>> Get(Func<Dog, bool> predicate)
-    {
-        var dogs = _dogsContext.Dogs
-            .AsQueryable()
-            .Where(predicate)
-            .ToList();
-        
-        return await Task.FromResult<IEnumerable<Dog>>(dogs);
-    }
-
     public override async Task<bool> Create(Dog dog)
     {
         var existingDog = await Get(dog.Name);
-        if (existingDog is null)
+        if (existingDog is not null)
             return false;
         
         await base.Create(dog);
