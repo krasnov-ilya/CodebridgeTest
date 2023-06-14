@@ -18,13 +18,6 @@ public class DogsController : ControllerBase
         _serviceInfoOptions = serviceInfoOptions.Value;
     }
     
-    // [HttpGet("/dogs")]
-    // public async Task<IActionResult> Index()
-    // {
-    //     var dogs = await _dogsService.Get();
-    //     return Ok(dogs);
-    // }
-    
     [HttpGet("/dogs")]
     public async Task<IActionResult> Get([FromQuery] DogsFilterDto dogsFilterDto, [FromQuery] PaginationFilterDto paginationFilterDto)
     {
