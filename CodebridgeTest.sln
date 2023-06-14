@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodebridgeTest.Persistence"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodebridgeTest.Infrastructure", "CodebridgeTest.Infrastructure\CodebridgeTest.Infrastructure.csproj", "{DBB26540-FF7C-4EDB-96A4-6B076E5444BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F819C001-BD2F-46F1-8E9C-28D552B2A49D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{090F0DE8-3B4F-4168-83F7-1CCCAF418802}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{DBB26540-FF7C-4EDB-96A4-6B076E5444BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBB26540-FF7C-4EDB-96A4-6B076E5444BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBB26540-FF7C-4EDB-96A4-6B076E5444BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{090F0DE8-3B4F-4168-83F7-1CCCAF418802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{090F0DE8-3B4F-4168-83F7-1CCCAF418802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{090F0DE8-3B4F-4168-83F7-1CCCAF418802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{090F0DE8-3B4F-4168-83F7-1CCCAF418802}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{090F0DE8-3B4F-4168-83F7-1CCCAF418802} = {F819C001-BD2F-46F1-8E9C-28D552B2A49D}
 	EndGlobalSection
 EndGlobal
